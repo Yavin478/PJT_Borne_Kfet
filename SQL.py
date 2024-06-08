@@ -17,5 +17,3 @@ def SQL_EXECUTE(querry):
     _cursor.execute(querry)
     _cnx.commit()
     _cnx.close()
-    ##DATA_add(setting.projet_path+'PICONFLEX2000-LOGS/LOG_SQL.txt',querry+"\n")
-

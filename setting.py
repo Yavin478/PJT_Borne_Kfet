@@ -1,5 +1,5 @@
 print("Demarrage 'setting.py'")
-from importation import *
+# from importation import *
 
 # Définition des variables reliée à l'objet setting définissant les paramètres de la box. Ces paramètres sont sauvegardés et résistent au reboot
 class setting:
@@ -27,9 +27,9 @@ class setting:
     # Mot de passe du nom d'utilisateur
     # Nom de la BDD
     # IP du serveur BDD
-    connection = {"user": 'pi',
-                  "password": 'pi',
-                  "database": 'Guinche',
-                  "host": '192.168.1.100'}
+    connection = {"user": 'lydia',
+                  "password": 'rezal@K1N',
+                  "database": 'GestionKIN',
+                  "host": '172.20.0.7'}
     serveurNet = "8.8.8.8"
 # Adresse IP DNS google qui répond au ping

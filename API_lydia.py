@@ -18,7 +18,6 @@ def Lydia_check(token_public,montant,phone,order_id,Qrcode):
         'currency': 'EUR'
     }
 
-    # Configuration optionnelle : désactiver la vérification SSL pour cet exemple.
     # En production, assurez-vous que SSL est activé et correctement configuré.
     requests.packages.urllib3.disable_warnings()
 
@@ -32,14 +31,20 @@ def Lydia_check(token_public,montant,phone,order_id,Qrcode):
 
         try :
             if response_data['error'] == "0":
-                Entrer_log(setting.projet_path, "Logs_prg","Transaction lydia réussie")
-                Entrer_log(setting.projet_path, "Logs_prg", "Identifiant de la transaction :"+ str(response_data['transaction_identifier']))
+                #Entrer_log(setting.projet_path, "Logs_prg","Transaction lydia réussie")
+                #Entrer_log(setting.projet_path, "Logs_prg", "Identifiant de la transaction :"+ str(response_data['transaction_identifier']))
                 return response_data['transaction_identifier']
-        except :
-            Entrer_log(setting.projet_path, "Logs_error","Erreur lors de la transaction :" + str(response_data['status']) +"  :  " + str(response_data['message']))
+            else :
+                #Entrer_log(setting.projet_path, "Logs_error","Erreur lors de la transaction :" + str(response_data['error']) + " : " + str(response_data['message']))
+                print(str(response_data['error']) + " : " + str(response_data['message']))
+                return None
+
+        except Exception as e:
+            print("Exception détectée : ",e)
+            #Entrer_log(setting.projet_path, "Logs_error","Erreur lors de la transaction :" + str(e))
             return None
 
     else:
-        Entrer_log(setting.projet_path, "Logs_error","Erreur de requête HTTP :" + str(response.status_code))
+        #Entrer_log(setting.projet_path, "Logs_error","Erreur de requête HTTP :" + str(response.status_code))
         return None
 

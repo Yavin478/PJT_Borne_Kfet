@@ -1,5 +1,9 @@
 print("Demarrage 'config_lydia.py'")
-from RFID import *
+from setting import *
+import mysql.connector
+import json
+from time import *
+import requests
 
 #### Fichier de définitions des TOKENS et numéro de téléphone utilisé pour les transactions ####
 # Décommentez l'url adéquat selon l'utilisation de la borne #
@@ -8,11 +12,11 @@ from RFID import *
 
 class config_lydia :
     # L'URL de l'API pour initier une transaction (remplacer par l'URL de test ou de production selon le cas)
-    url = "https://lydia-app.com/api/payment/payment.json"   # Production
-    #url = "https://homologation.lydia-app.com/api/payment/payment.json"    # Test
+    #url = "https://lydia-app.com/api/payment/payment.json"   # Production
+    url = "https://homologation.lydia-app.com/api/payment/payment.json"    # Test
 
     # TOKENS DE TEST pour le site Kfet
-    #token_public = "58ada276ab575970477137" #pour les appels
+    token_public = "58ada276ab575970477137" #pour les appels
     #token_prive = "58ada276ad930951358751" #pour la signature
 
     # TOKENS DE PRODUCTION pour le site Kfet
@@ -20,14 +24,9 @@ class config_lydia :
     #token_prive = "56b21e4212e2b468320228" #pour la signature
 
 
-    # TOKENS DE TEST pour la cagnote des 100J
-    #token_public = "660e5b8b4c353994613407" #pour les appels
-    #token_prive = "660e5b8b52b31218065719" #pour la signature
+    # Numéro de téléphone du caissier enregistré pour les rechargements Kfet
+    #phone = '33782977418' # Phone d'un gripss O 223
+    phone = '33632994795'  # Phone d'un gripss O 222
 
-    # TOKENS DE PRODUCTION pour le cagnote des 100J
-    token_public = "54c10dbc666a3894276098" #pour les appels
-    token_prive = "54c10dbc67804505863299" #pour la signature
-
-    # Numéro de téléphone du caissier pour la cagnote des 100J
-    phone='33782977418' # Phone d'un gripss O 223
-    #phone = '33632994795'  # Phone d'un gripss O 222
+    #phone = '330648809845' # Phone de test d'un ancien gripss O
+    #phone = '330648927501' # Phone d'un ancien gripss O

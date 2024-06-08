@@ -4,33 +4,37 @@ from SQL import *
 #### Définition des requêtes SQL ####
 
 # Préparation BDD
-def QUERRY_getIdLydia(date):
-    return (("SELECT id FROM recharge_lydia WHERE date= '{}';").format(date))
+def QUERRY_getIdLydia(users_id, date):
+    return (("SELECT id FROM consos_lydia WHERE users_id='{}' AND date= '{}';").format(users_id, date))
 
-def QUERRY_getCarte(UID):
-    return (("SELECT * FROM cartes WHERE uid= '{}';").format(UID))
+def QUERRY_getUser(blairal):
+    return (("SELECT * FROM users WHERE blairal= '{}' AND deleted=0;").format(blairal))
 
-def QUERRY_addCarte(UID):
-    return (("INSERT INTO cartes (UID, ArgentCarte) VALUES ( '{}' , '{}' );").format(UID,0))
+def QUERRY_setIdLydia(montant, users_id, date):
+    return (("INSERT INTO consos_lydia (montant, users_id, date) VALUES ('{}','{}','{}');").format(montant, users_id, date))
 
-def QUERRY_setIdLydia(date):
-    return (("INSERT INTO recharge_lydia (date) VALUES ('{}');").format(date))
+# Récupère la date courante, mesurée en secondes depuis le début de l'époque UNIX, (1er janvier 1970 00:00:00 GMT)
+def QUERRY_getTimeUnix():
+    return (("SELECT UNIX_TIMESTAMP();"))
 
+# Récupère la date courante de la BDD (ex : 2024-06-08 18:42:36)
 def QUERRY_getTime():
-    return (("SELECT NOW();"))
+    return (("SELECT Now();"))
 
 # Finalisation BDD
-def QUERRY_getMoney(UID):
-    return (("SELECT ArgentCarte FROM cartes WHERE UID='{}';").format(UID))
 
-def QUERRY_setMoney(UID,Money):
-    return (("UPDATE cartes SET ArgentCarte='{}' WHERE UID='{}'").format(Money,UID))
+def QUERRY_getCredit(users_id):
+    return (("SELECT credit FROM users WHERE id= '{}' AND deleted=0;").format(users_id))
+def QUERRY_setCredit(users_id, new_montant):
+    return (("UPDATE users SET credit='{}'WHERE id='{}'").format(new_montant, users_id))
+def QUERRY_setConsos(users_id, montant, date):
+    return (("INSERT INTO consos (en_attente_de_livraison, users_id, consomateur_id, produits_id, date, admins_id, montant, quantite ) VALUES ('{}','{}',NULL,'{}','{}','{}','{}','{}');").format(0, users_id, 3222, date, 179, montant, 1))
 
-def QUERRY_setRecharge(UID, montant, box, date):
-    return (("INSERT INTO recharge (UID, montant, box, date) VALUES ('{}','{}','{}','{}');").format(UID, montant, box, date))
+def QUERRY_getIdConsos(users_id, date):
+    return (("SELECT id FROM consos WHERE users_id='{}' AND date='{}';").format(users_id, date))
 
-def QUERRY_getIdRecharge(date):
-    return (("SELECT id FROM recharge WHERE date='{}';").format(date))
+def QUERRY_setConsosLydia(order_id,id_consos,transaction_identifier):
+    return (("UPDATE consos_lydia SET id_consos='{}', transaction_identifier='{}'WHERE id='{}'").format(id_consos,transaction_identifier,order_id))
 
-def QUERRY_setTransactionLydia(order_id,id_recharge,transaction_identifier):
-    return (("UPDATE recharge_lydia SET id_recharge='{}', transaction_identifier='{}'WHERE id='{}'").format(id_recharge,transaction_identifier,order_id))
+def QUERRY_setLogCreditUpdate(date, users_id, montant_avant, montant_apres):
+    return (("INSERT INTO log_credit_update (date, id_user, montant_avant, montant_apres) VALUES ('{}','{}','{}','{}');").format(date, users_id, montant_avant, montant_apres))
