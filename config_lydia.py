@@ -5,6 +5,8 @@ import json
 from time import *
 import requests
 
+#from STRING import *
+
 #### Fichier de définitions des TOKENS et numéro de téléphone utilisé pour les transactions ####
 # Décommentez l'url adéquat selon l'utilisation de la borne #
 # Décommentez le token adéquat selon l'utilisation de la borne #

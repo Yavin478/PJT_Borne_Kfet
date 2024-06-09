@@ -1,5 +1,5 @@
 print("Demarrage 'DATA.py'")
-from CRYPT import *
+from Rezal import *
 
 #### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
 

@@ -1,5 +1,5 @@
 print("Demarrage 'setting.py'")
-# from importation import *
+#from importation import *
 
 #### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
 
@@ -22,8 +22,6 @@ class setting:
     IP='192.168.1.91'
     # Adresse MAC de la box
     MAC='02:07:84:40:6b:94'
-    # Dictionnaire des produits de la box
-    produits={}
     # Définition du dictionnaire de connection à la BDD
     # Nom d'utilisateur
     # Mot de passe du nom d'utilisateur
@@ -33,5 +31,5 @@ class setting:
                   "password": 'rezal@K1N',
                   "database": 'GestionKIN',
                   "host": '172.20.0.7'}
+    # Adresse IP DNS google qui répond au ping
     serveurNet = "8.8.8.8"
-# Adresse IP DNS google qui répond au ping
