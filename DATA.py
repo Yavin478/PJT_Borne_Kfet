@@ -1,8 +1,10 @@
 print("Demarrage 'DATA.py'")
 from CRYPT import *
 
+#### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 def DATA_setVariable(variableName,contenu):
-    fichierName=str(setting.projet_path)+config.repo+"/setting.py"
+    fichierName=setting.projet_path+config.repo+"/setting.py"
     if type(contenu)==str:
         exec("setting."+variableName+"="+"'"+str(contenu)+"'")
     else:

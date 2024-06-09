@@ -1,6 +1,8 @@
 print("Demarrage 'API_lydia.py'")
 from Requetes import *
 
+#### Script usiné par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 #### Fonction de vérification d'une transaction lydia ####
 
 def Lydia_check(token_public,montant,phone,order_id,Qrcode):
@@ -31,20 +33,20 @@ def Lydia_check(token_public,montant,phone,order_id,Qrcode):
 
         try :
             if response_data['error'] == "0":
-                #Entrer_log(setting.projet_path, "Logs_prg","Transaction lydia réussie")
-                #Entrer_log(setting.projet_path, "Logs_prg", "Identifiant de la transaction :"+ str(response_data['transaction_identifier']))
+                #Entrer_log("Logs_prg","Transaction lydia réussie")
+                #Entrer_log("Logs_prg", "Identifiant de la transaction :"+ str(response_data['transaction_identifier']))
                 return response_data['transaction_identifier']
             else :
-                #Entrer_log(setting.projet_path, "Logs_error","Erreur lors de la transaction :" + str(response_data['error']) + " : " + str(response_data['message']))
+                #Entrer_log("Logs_error","Erreur lors de la transaction :" + str(response_data['error']) + " : " + str(response_data['message']))
                 print(str(response_data['error']) + " : " + str(response_data['message']))
                 return None
 
         except Exception as e:
             print("Exception détectée : ",e)
-            #Entrer_log(setting.projet_path, "Logs_error","Erreur lors de la transaction :" + str(e))
+            #Entrer_log("Logs_error","Erreur lors de la transaction :" + str(e))
             return None
 
     else:
-        #Entrer_log(setting.projet_path, "Logs_error","Erreur de requête HTTP :" + str(response.status_code))
+        #Entrer_log("Logs_error","Erreur de requête HTTP :" + str(response.status_code))
         return None
 

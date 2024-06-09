@@ -1,7 +1,7 @@
 print("Demarrage 'main_affichage.py'")
-
 from Template_pageV2 import *
 
+#### Script usiné conjointement par Yavin 4µ78 et Bercerf'k 57 (plus par le Gripss Rezal 222 en vrai de vrai) ####
 
 class MainApp(Tk):
     def __init__(self, *args, **kwargs):
@@ -23,7 +23,7 @@ class MainApp(Tk):
                     self.mode = "Carte"
                 else:
                     self.mode = "No_card"
-                    Entrer_log(setting.projet_path, "Logs_prg", "Absence d'une carte")
+                    Entrer_log("Logs_prg", "Absence d'une carte")
                 self.sleeping_mode = True
             self.L_presence_card = []
 
@@ -33,7 +33,7 @@ class MainApp(Tk):
             if self.Verif_Rezal():
                 self.sleeping_mode = False
 
-                Entrer_log(setting.projet_path, "Logs_prg", "MODE : "+ str(self.mode))
+                Entrer_log("Logs_prg", "MODE : "+ str(self.mode))
                 print("MODE : " + self.mode)
 
                 if self.mode == "Carte":
@@ -62,7 +62,7 @@ class MainApp(Tk):
                     print("wrong mode ducon")
             else :
                 print("error plus de coo")
-                Entrer_log(setting.projet_path, "Logs_co", "Connection perdue")
+                Entrer_log("Logs_co", "Connection perdue")
                 self.Error_rezal()
 
 
@@ -72,36 +72,36 @@ class MainApp(Tk):
         self.after(100, self.Boucle)
 
     def Verif_Rezal(self):
-        Entrer_log(setting.projet_path,"Logs_co" , "Test des connections")
+        Entrer_log("Logs_co" , "Test des connections")
 
         self.Test_Rezal()
         if (setting.rezalOn and setting.rezalNet):
-            Entrer_log(setting.projet_path, "Logs_co", "Connections établies avec succès")
+            Entrer_log("Logs_co", "Connections établies avec succès")
             return True
         else:
-            Entrer_log(setting.projet_path, "Logs_co", "Connections non établies")
+            Entrer_log("Logs_co", "Connections non établies")
             return False
 
     def Test_Rezal(self):  # Fonction de vérification du réseau
         try:
             if REZAL_pingServeur():  # Ping du serveur guinche pour s'assurer que la connection locale est toujours présente
-                Entrer_log(setting.projet_path, "Logs_co", "Connection à la BDD OK")
+                Entrer_log("Logs_co", "Connection à la BDD OK")
                 DATA_setVariable("rezalOn", bool(REZAL_pingServeur()))
                 if REZAL_pingInternet():  # Ping du serveur google pour s'assurer que la connection internet est toujours présente
-                    Entrer_log(setting.projet_path, "Logs_co", "Connection à internet OK")
+                    Entrer_log("Logs_co", "Connection à internet OK")
                     DATA_setVariable("rezalNet", bool(REZAL_pingInternet()))
                     return None
                 else:
-                    Entrer_log(setting.projet_path, "Logs_co", "La connection au serveur google a échoué")
+                    Entrer_log("Logs_co", "La connection au serveur google a échoué")
                     DATA_setVariable("rezalNet", bool(False))
                     return None
             else:
-                Entrer_log(setting.projet_path, "Logs_co", "La connection au serveur Guinche a échoué")
+                Entrer_log("Logs_co", "La connection au serveur Guinche a échoué")
                 DATA_setVariable("rezalOn", bool(False))
                 return None
 
         except Exception as e:
-            Entrer_log(setting.projet_path, "Logs_error", str(e))
+            Entrer_log("Logs_error", str(e))
             DATA_setVariable("rezalOn", bool(False))
             DATA_setVariable("rezalNet", bool(False))
             return None
@@ -109,19 +109,19 @@ class MainApp(Tk):
     def Carte(self):
 
         self.top.Page_carte()
-        Entrer_log(setting.projet_path, "Logs_prg", "Recherche d'une carte")
+        Entrer_log("Logs_prg", "Recherche d'une carte")
         RFID_getUID(self, self.Check_Carte)
 
     def Check_Carte(self, uidstring):
         self.uidstring = uidstring
         self.UID = STRING_uidStrToInt(uidstring)
-        Entrer_log(setting.projet_path, "Logs_prg", "UID d'une carte détectée : "+str(self.UID))
+        Entrer_log("Logs_prg", "UID d'une carte détectée : "+str(self.UID))
 
         if len(SQL_SELECT(QUERRY_getCarte(self.UID))) == 0:  # test si la carte est déjà présente dans la bdd
             SQL_EXECUTE(QUERRY_addCarte(self.UID))
 
         self.argent = SQL_SELECT(QUERRY_getMoney(self.UID))[0][0] / 100  # Pour convertir le montant en euros
-        Entrer_log(setting.projet_path, "Logs_prg", "Argent sur la carte : " + str(self.argent))
+        Entrer_log("Logs_prg", "Argent sur la carte : " + str(self.argent))
 
         self.mode = "Montant"
         self.sleeping_mode = True
@@ -131,17 +131,17 @@ class MainApp(Tk):
             self.top.Page_montant(self.argent)
         else:
             self.mode = "Error_Matos"
-            Entrer_log(setting.projet_path, "Logs_error", "Probleme avec le matériel")
+            Entrer_log("Logs_error", "Probleme avec le matériel")
             self.sleeping_mode = True
 
 
     def Check_montants(self, montant):
         self.montant = int(montant)
-        Entrer_log(setting.projet_path, "Logs_prg", "Montant de la recharge souhaitée : " + str(self.montant))
+        Entrer_log("Logs_prg", "Montant de la recharge souhaitée : " + str(self.montant))
         if self.montant > config.maxTransaction / 100 or (
                 self.montant + self.argent) > config.maxMontant / 100 or self.montant == 0:  # Vérifie le montant de la recharge
             self.mode = "Error_Montant"
-            Entrer_log(setting.projet_path, "Logs_error", "Montant incorrecte")
+            Entrer_log("Logs_error", "Montant incorrecte")
         else:
             self.mode = "QR"
         self.sleeping_mode = True
@@ -151,46 +151,46 @@ class MainApp(Tk):
             self.top.Page_QR()
         else:
             self.mode = "Error_Matos"
-            Entrer_log(setting.projet_path, "Logs_error", "Probleme avec le matériel")
+            Entrer_log("Logs_error", "Probleme avec le matériel")
             self.sleeping_mode = True
 
     def QR_check(self, QR):
         try:
             self.QRcode = eval(QR)
-            Entrer_log(setting.projet_path, "Logs_prg", "QR code scanné")
+            Entrer_log("Logs_prg", "QR code scanné")
             self.mode = "Transaction"
         except:
             self.mode = "Error_QR"
-            Entrer_log(setting.projet_path, "Logs_error", "Probleme avec le Qr code")
+            Entrer_log("Logs_error", "Probleme avec le Qr code")
         self.sleeping_mode = True
 
     def QR_checkUID(self):
-        Entrer_log(setting.projet_path, "Logs_prg", "Reverification d'une carte")
+        Entrer_log("Logs_prg", "Reverification d'une carte")
         RFID_getUID(self, self.QR_transact)
 
 
     def QR_transact(self, uid):
         self.UID_check=STRING_uidStrToInt(uid)
-        Entrer_log(setting.projet_path, "Logs_prg", "Carte trouvé: "+str(self.UID_check))
+        Entrer_log("Logs_prg", "Carte trouvé: "+str(self.UID_check))
 
         if self.UID_check!=self.UID:
             self.mode = "Error_Carte"
-            Entrer_log(setting.projet_path, "Logs_error", "Erreur de carte : UID différents")
-            Entrer_log(setting.projet_path, "Logs_error", "UID détecté initialement :" + str(self.UID))
-            Entrer_log(setting.projet_path, "Logs_error", "UID détecté avant transaction :" + str(self.UID_check))
+            Entrer_log("Logs_error", "Erreur de carte : UID différents")
+            Entrer_log("Logs_error", "UID détecté initialement :" + str(self.UID))
+            Entrer_log("Logs_error", "UID détecté avant transaction :" + str(self.UID_check))
             self.sleeping_mode = True
         else:
-            Entrer_log(setting.projet_path, "Logs_prg", "Correspondance des UID")
-            Entrer_log(setting.projet_path, "Logs_prg", "Identifiant du QR code : " + str(self.QRcode))
+            Entrer_log("Logs_prg", "Correspondance des UID")
+            Entrer_log("Logs_prg", "Identifiant du QR code : " + str(self.QRcode))
             if Transaction_Lydia(setting.numeroBox, self.UID, self.montant, self.QRcode, config_lydia.token_public,
                                  config_lydia.phone):
-                Entrer_log(setting.projet_path, "Logs_prg", "Transaction lydia éffectuée avec succès")
+                Entrer_log("Logs_prg", "Transaction lydia éffectuée avec succès")
                 RFID_setArgent(int((self.montant + self.argent) * 100),self.uidstring)  # Ecriture du nouveau montant sur la carte RFID
-                Entrer_log(setting.projet_path, "Logs_prg","Ecriture du nouveau montant sur la carte RFID effectuée avec succès")
+                Entrer_log("Logs_prg","Ecriture du nouveau montant sur la carte RFID effectuée avec succès")
                 self.mode = "Finish"
             else:
                 self.mode = "Error_QR"
-                Entrer_log(setting.projet_path, "Logs_error", "Erreur lors de la transaction lydia")
+                Entrer_log("Logs_error", "Erreur lors de la transaction lydia")
             self.sleeping_mode = True
 
 

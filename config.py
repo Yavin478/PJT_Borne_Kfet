@@ -1,6 +1,7 @@
 print("Démarrage 'config.py'")
 from setting import *
 
+#### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
 class config:  # Définition des variables reliée à l'objet config définissant les paramètres de la borne
 
     # Montant en euros minimal à pouvoir mettre pendant une transaction

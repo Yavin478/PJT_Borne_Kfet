@@ -1,6 +1,8 @@
 print("Demarrage 'main_lydia.py'")
 from API_lydia import *
 
+#### Script usiné par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 #### Programme principale de la transaction lydia avec MAJ BDD ####
 def Recharge_credit(users_id, montant_avant, montant):
     SQL_EXECUTE(QUERRY_setCredit(users_id, montant+montant_avant))
@@ -36,12 +38,12 @@ def Transaction_Lydia(users_id, montant, Qrcode, token_public, phone):
         date_log= SQL_SELECT(QUERRY_getTime())[0][0]
         QUERRY_setLogCreditUpdate(date_log, users_id, montant_avant, montant_avant+montant)
 
-        #Entrer_log(setting.projet_path, "Logs_prg", "Mise à jour de la BDD effectuée avec succès")
+        #Entrer_log("Logs_prg", "Mise à jour de la BDD effectuée avec succès")
         return True
 
     # 5) Si paiement refusé
     else:
-        #Entrer_log(setting.projet_path, "Logs_error", "Problème survenu lors de la transaction")
+        #Entrer_log("Logs_error", "Problème survenu lors de la transaction")
         return False
 
 

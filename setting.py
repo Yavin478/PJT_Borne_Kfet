@@ -1,6 +1,8 @@
 print("Demarrage 'setting.py'")
 # from importation import *
 
+#### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 # Définition des variables reliée à l'objet setting définissant les paramètres de la box. Ces paramètres sont sauvegardés et résistent au reboot
 class setting:
     projet_path = "/".join(__file__.split("/")[:-2]) + "/"

@@ -1,6 +1,8 @@
 print("Demarrage 'Requetes.py'")
 from SQL import *
 
+#### Script usiné par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 #### Définition des requêtes SQL ####
 
 # Préparation BDD

@@ -1,4 +1,7 @@
+print("Demarrage 'Config_Affichage.py'")
 from main_lydia import *
+
+#programmater par le plus bo goss des 222 alias Bercerf'k 57
 
 gala='100J'
 

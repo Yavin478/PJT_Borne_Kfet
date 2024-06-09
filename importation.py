@@ -1,5 +1,7 @@
 print("Demarrage 'importation.py'")
 
+#### Script modifié par Yavin 4µ78, Secret'ss Rezal 222, alias Néo ####
+
 #### Fichier d'importation des packages python ####
 
 print("Importation 'os'")

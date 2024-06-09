@@ -1,7 +1,7 @@
 print("Demarrage 'USB.py'")
 from DATA import *
 
-
+#programmater par le plus bo goss des 222 alias Bercerf'k 57
 def get_device_ids(device_name):
     if device_name == 'keyboard':
         device_name=config.name_keyboard
